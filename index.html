@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ぐちゃぐちゃあたり</title>
+<script type="text/javascript">
+function test() {
+  //描画コンテキストの取得
+  var canvas = document.getElementById('sample');
+  if (canvas.getContext) {
+    var context = canvas.getContext('2d');
+    //ここに具体的な描画内容を指定する
+    //新しいパスを開始する
+
+    context.beginPath();
+
+    var x_loc = Math.floor(Math.random()*800)
+    var y_loc = Math.floor(Math.random()*800)
+    var deg = Math.floor(Math.random()*360)
+
+    context.moveTo(x_loc,y_loc);
+
+    for (var i=1; i<=10000; i++) {
+
+        if( deg<=0){
+          deg=deg+360;
+        } 
+
+        if( deg>=360){
+          deg=deg-360;
+        } 
+
+        if((x_loc<=0) || (x_loc>=800) || (y_loc<=0) || (y_loc>=800)) {
+          deg=deg+180;
+            if( deg>=360){
+              deg=deg-360;
+          } 
+        }
+
+        x_loc=x_loc+Math.cos(Math.PI / (180 /deg))*5;
+        y_loc=y_loc+Math.sin(Math.PI / (180 /deg))*5;
+        context.lineTo(x_loc,y_loc);
+
+        deg = deg+Math.floor((Math.random()+Math.random()+Math.random())/3*100)-50;
+
+        }
+
+
+    //パスを閉じる（最後の座標から開始座標に向けてラインを引く）
+//    context.closePath();
+    //現在のパスを輪郭表示する
+    context.stroke();
+
+  }
+}
+//-->
+</script>
+</head>
+<body onLoad="test()">
+<h2>ぐちゃぐちゃあたり</h2>
+<canvas width="800" height="800" id="sample" style="background-color:rgb(240, 255, 204);">
+ぐちゃぐちゃ
+</canvas>
+</body>
+</html>
